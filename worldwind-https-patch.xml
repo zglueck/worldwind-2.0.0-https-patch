@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2012 United States Government as represented by the Administrator of the
+  ~ National Aeronautics and Space Administration.
+  ~ All Rights Reserved.
+  -->
+
+<!--Updated configuration values to support https in World Wind Java v2.0.0-->
+<!--Some configuration items will still use the default configuration files-->
+<WorldWindConfiguration version="1">
+    <!--Manifest of updated https layers-->
+    <LayerList href="worldwind-2.0.0-https-patch/worldwind-https-patch.layers.xml"/>
+    <Property name="gov.nasa.worldwind.avkey.EarthElevationModelConfigFile"
+              value="worldwind-2.0.0-https-patch/EarthHttpsPatch/EarthElevations2.xml"/>
+</WorldWindConfiguration>
