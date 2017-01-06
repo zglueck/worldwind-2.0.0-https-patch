@@ -21,14 +21,14 @@
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/BMNGWMSLayer2.xml" actuate="onLoad"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/LandsatI3WMSLayer2.xml" actuate="onLoad"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/USDANAIPWMSImageLayer.xml" actuate="onRequest"/>
-    <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/USDANAIPUSGSWMSImageLayer.xml" actuate="onRequest"/>
+    <Layer href="config/Earth/USDANAIPUSGSWMSImageLayer.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/MSVirtualEarthAerialLayer.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/BingImagery.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/USGSTopoLowResLayer.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/USGSTopoMedResLayer.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/USGSTopoHighResLayer.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/USGSUrbanAreaOrthoLayer.xml" actuate="onRequest"/>
-    <Layer className="gov.nasa.worldwind.layers.Earth.CountryBoundariesLayer" actuate="onRequest"/>
+    <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/CountryBoundariesLayer.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/OpenStreetMap.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/EarthAtNightLayer.xml" actuate="onRequest"/>
     <Layer className="gov.nasa.worldwind.layers.Earth.NASAWFSPlaceNameLayer"/>
