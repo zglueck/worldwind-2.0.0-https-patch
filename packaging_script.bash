@@ -1,1 +1,0 @@
-zip -r worldwind-2.0.0-https-patch.zip * -x "*.DS_Store" -x ".gi*" -x "packaging_script.bash"
