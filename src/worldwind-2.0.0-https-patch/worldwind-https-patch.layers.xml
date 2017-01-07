@@ -31,7 +31,7 @@
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/CountryBoundariesLayer.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/OpenStreetMap.xml" actuate="onRequest"/>
     <Layer href="worldwind-2.0.0-https-patch/EarthHttpsPatch/EarthAtNightLayer.xml" actuate="onRequest"/>
-    <Layer className="gov.nasa.worldwind.layers.Earth.NASAWFSPlaceNameLayer"/>
+    <Layer className="gov.nasa.worldwind.layers.Earth.NASAWFSPlaceNameLayerHttps"/>
     <Layer className="gov.nasa.worldwind.layers.WorldMapLayer"/>
     <Layer className="gov.nasa.worldwind.layers.ScalebarLayer"/>
     <Layer className="gov.nasa.worldwind.layers.CompassLayer"/>
