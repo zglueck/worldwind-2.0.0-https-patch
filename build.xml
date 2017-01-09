@@ -28,18 +28,12 @@
         <delete file="${basedir}/worldwindx.jar"/>
     </target>
 
-    <target name="assemble" depends="assembleDebug"
-            description="Assembles JAR libraries for all build types and assembles the project documentation."/>
-
     <!-- Targets for compiling Java sources and bundling JAR libraries. -->
 
-    <target name="assembleDebug" depends="compileDebugSources, bundleDebug"
-            description="Assembles JAR libraries for the debug build type."/>
+    <target name="assemble" depends="compileSources, bundle"
+            description="Assembles JAR libraries."/>
 
-    <target name="assembleRelease" depends="compileReleaseSources, bundleRelease"
-            description="Assembles JAR libraries for the release build type."/>
-
-    <target name="compileDebugSources">
+    <target name="compileSources">
         <mkdir dir="${worldwind.classes.dir}"/>
         <compileJava srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}" 
                      jdk="${worldwind.jdk}">
@@ -51,30 +45,10 @@
         </compileJava>
     </target>
 
-    <target name="compileReleaseSources">
-        <mkdir dir="${worldwind.classes.dir}/release"/>
-        <compileJava srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/release" type="release"
-                     jdk="${worldwind.jdk}">
-            <pathelements>
-                <pathelement location="${basedir}/jogl-all.jar"/>
-                <pathelement location="${basedir}/gluegen-rt.jar"/>
-                <pathelement location="${basedir}/gdal.jar"/>
-            </pathelements>
-        </compileJava>
-    </target>
-
-    <target name="bundleDebug">
+    <target name="bundle">
         <mkdir dir="${worldwind.jar.dir}"/>
         <bundleJarFiles srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}"
                         destdir="${worldwind.jar.dir}"/>
-    </target>
-
-    <target name="bundleRelease">
-        <mkdir dir="${worldwind.jar.dir}"/>
-        <bundleJarFiles srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/release"
-                        destdir="${worldwind.jar.dir}" type="release"/>
-        <copy file="${worldwind.jar.dir}/worldwind-release.jar" tofile="${basedir}/worldwind.jar"/>
-        <copy file="${worldwind.jar.dir}/worldwindx-release.jar" tofile="${basedir}/worldwindx.jar"/>
     </target>
    
 </project>

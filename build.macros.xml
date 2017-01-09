@@ -20,7 +20,6 @@
     <macrodef name="compileJava">
         <attribute name="srcdir"/>
         <attribute name="classdir"/>
-        <!-- <attribute name="type"/> -->
         <attribute name="jdk"/>
         <element name="pathelements"/>
         <sequential>
@@ -36,7 +35,7 @@
                    fork="true"
                    includeantruntime="false"
                    memoryMaximumSize="512m">
-                <classpath path="${comp.worldwind}"/>
+                <classpath path="${worldwind.jar.location}"/>
                 <compilerarg value="-Xlint:unchecked"/>
             </javac>
         </sequential>
@@ -63,7 +62,6 @@
         <attribute name="srcdir"/>
         <attribute name="classdir"/>
         <attribute name="destdir"/>
-        <!-- <attribute name="type"/> -->
         <sequential>
             <!--<condition property="bundleJarFiles.debug" value="true" else="false">
                 <equals arg1="@{type}" arg2="debug"/>
