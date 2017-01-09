@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ Copyright (C) 2017 United States Government as represented by the Administrator of the
+  ~ National Aeronautics and Space Administration.
+  ~ All Rights Reserved.
+  -->
+
+<project name="worldwind-2.0.0-https-patch" default="build" basedir=".">
+    <description>
+        Build script for the World Wind Java 2.0.0 HTTPS Patch. Assembles the World Wind HTTPS patch source code, and bundles World Wind library JAR files.
+    </description>
+
+    <!-- Import the ANT build properties and project ANT macros. -->
+
+    <property file="build.properties"/>
+    <import file="build.macros.xml"/>
+
+    <!-- Main build targets. Provides generic targets that compile the Java sources, bundle JAR libraries, assemble API
+         documentation, test the Java sources, and clean up the build output. -->
+
+    <target name="build" depends="assemble"
+            description="Default build target. Assembles this project."/>
+
+    <target name="clean" description="Deletes the build directory.">
+        <delete dir="${worldwind.build.dir}"/>
+        <delete file="${basedir}/worldwind-2.0.0-https-patch.jar"/>
+    </target>
+
+    <target name="assemble" depends="assembleRelease"
+            description="Assembles JAR libraries for all build types and assembles the project documentation.">
+        <mkdir dir="${worldwind.jar.dir}"/>
+        <bundleJarFiles srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/release"
+                        destdir="${worldwind.jar.dir}" type="release"/>
+        <copy file="${worldwind.jar.dir}/worldwind-release.jar" tofile="${basedir}/worldwind.jar"/>
+        <copy file="${worldwind.jar.dir}/worldwindx-release.jar" tofile="${basedir}/worldwindx.jar"/>
+    </target>
+
+</project>

@@ -1,0 +1,80 @@
+<!--
+  ~ Copyright (C) 2017 United States Government as represented by the Administrator of the
+  ~ National Aeronautics and Space Administration.
+  ~ All Rights Reserved.
+  -->
+
+<project name="worldwind.macros" basedir=".">
+
+    <!-- Macros for compiling Java sources.
+
+         The javac attributes 'source' and 'target' are configured by the property worldwind.jdk.version in order to
+         explicitly define the Java compiler version. Without these attributes javac uses the latest compiler available
+         on the current machine, resulting in unpredictable class versions.
+
+         The javac compiler argument '-Xlint:unchecked' is specified in order to give more detail for unchecked
+         conversion warnings. This argument is specified in the World Wind Java IntelliJ IDEA project. Its use here
+         keeps ANT compiled classes in sync with the IntelliJ IDEA compiled classes. -->
+
+    <macrodef name="compileJava">
+        <attribute name="srcdir"/>
+        <attribute name="classdir"/>
+        <attribute name="type"/>
+        <attribute name="jdk"/>
+        <element name="pathelements"/>
+        <sequential>
+            <condition property="compileJava.debug" value="true" else="false">
+                <equals arg1="@{type}" arg2="debug"/>
+            </condition>
+            <javac srcdir="@{srcdir}"
+                   destdir="@{classdir}"
+                   source="@{jdk}"
+                   target="@{jdk}"
+                   debug="${compileJava.debug}"
+                   encoding="UTF-8"
+                   fork="true"
+                   includeantruntime="false"
+                   memoryMaximumSize="512m">
+                <classpath>
+                    <pathelements/>
+                </classpath>
+                <compilerarg value="-Xlint:unchecked"/>
+            </javac>
+        </sequential>
+    </macrodef>
+
+    <!-- Macros for bundling library JAR files.
+
+         The World Wind core JAR file includes all class files and configuration files.
+         
+         All JAR files have the Permissions attribute set to "all-permissions". This attribute is ignored for locally
+         launched applications, but is required for signed Web Start Applications. This property must match the setting
+         specified in the JNLP file used to launch the application.
+         See http://docs.oracle.com/javase/7/docs/technotes/guides/jweb/manifest.html#permissions -->
+
+    <macrodef name="bundleJarFiles">
+        <attribute name="srcdir"/>
+        <attribute name="classdir"/>
+        <attribute name="destdir"/>
+        <attribute name="type"/>
+        <sequential>
+            <condition property="bundleJarFiles.debug" value="true" else="false">
+                <equals arg1="@{type}" arg2="debug"/>
+            </condition>
+            <jar jarfile="@{destdir}/worldwind-2.0.0-https-patch@{type}.jar">
+                <manifest>
+                    <attribute name="Permissions" value="all-permissions"/>
+                </manifest>
+                <fileset dir="@{classdir}">
+                    <include name="gov/nasa/worldwind/**/*.class"/>
+                    <type type="file"/>
+                </fileset>
+                <fileset dir="@{srcdir}">
+                    <include name="gov/nasa/worldwind/**/*.java" if="${bundleJarFiles.debug}"/>
+                    <type type="file"/>
+                </fileset>
+            </jar>
+        </sequential>
+    </macrodef>
+
+</project>
