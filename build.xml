@@ -28,7 +28,7 @@
         <delete file="${basedir}/worldwindx.jar"/>
     </target>
 
-    <target name="assemble" depends="assembleDebug, assembleRelease"
+    <target name="assemble" depends="assembleDebug"
             description="Assembles JAR libraries for all build types and assembles the project documentation."/>
 
     <!-- Targets for compiling Java sources and bundling JAR libraries. -->
@@ -40,8 +40,8 @@
             description="Assembles JAR libraries for the release build type."/>
 
     <target name="compileDebugSources">
-        <mkdir dir="${worldwind.classes.dir}/debug"/>
-        <compileJava srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/debug" type="debug"
+        <mkdir dir="${worldwind.classes.dir}"/>
+        <compileJava srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}" 
                      jdk="${worldwind.jdk}">
             <pathelements>
                 <pathelement location="${basedir}/jogl-all.jar"/>
@@ -65,8 +65,8 @@
 
     <target name="bundleDebug">
         <mkdir dir="${worldwind.jar.dir}"/>
-        <bundleJarFiles srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/debug"
-                        destdir="${worldwind.jar.dir}" type="debug"/>
+        <bundleJarFiles srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}"
+                        destdir="${worldwind.jar.dir}"/>
     </target>
 
     <target name="bundleRelease">
