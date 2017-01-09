@@ -23,9 +23,6 @@
         <attribute name="jdk"/>
         <element name="pathelements"/>
         <sequential>
-            <!--<condition property="compileJava.debug" value="true" else="false">
-                <equals arg1="@{type}" arg2="debug"/>
-            </condition>-->
             <javac srcdir="@{srcdir}"
                    destdir="@{classdir}"
                    source="@{jdk}"
@@ -63,9 +60,6 @@
         <attribute name="classdir"/>
         <attribute name="destdir"/>
         <sequential>
-            <!--<condition property="bundleJarFiles.debug" value="true" else="false">
-                <equals arg1="@{type}" arg2="debug"/>
-            </condition>-->
             <jar jarfile="@{destdir}/worldwind-2.0.0-https-patch.jar">
                 <manifest>
                     <!-- <attribute name="Permissions" value="all-permissions"/> -->
@@ -75,7 +69,7 @@
                     <type type="file"/>
                 </fileset>
                 <fileset dir="@{srcdir}">
-                    <include name="gov/nasa/worldwind/**/*.java"/> <!-- if="${bundleJarFiles.debug}"/> -->
+                    <include name="gov/nasa/worldwind/**/*.java"/>
                     <include name="worldwind-2.0.0-https-patch/**"/>
                     <type type="file"/>
                 </fileset>
