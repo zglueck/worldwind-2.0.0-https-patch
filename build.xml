@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright (C) 2017 United States Government as represented by the Administrator of the
   ~ National Aeronautics and Space Administration.
   ~ All Rights Reserved.
   -->
 
-<project name="worldwind-2.0.0-https-patch" default="build" basedir=".">
+<project name="worldwind" default="build" basedir=".">
     <description>
-        Build script for the World Wind Java 2.0.0 HTTPS Patch. Assembles the World Wind HTTPS patch source code, and bundles World Wind library JAR files.
+        Build script for World Wind Java. Assembles and tests the World Wind source code, creates World Wind API
+        documentation, and bundles World Wind library JAR files.
     </description>
 
     <!-- Import the ANT build properties and project ANT macros. -->
@@ -19,20 +20,61 @@
          documentation, test the Java sources, and clean up the build output. -->
 
     <target name="build" depends="assemble"
-            description="Default build target. Assembles this project."/>
+            description="Default build target. Assembles and tests this project."/>
 
     <target name="clean" description="Deletes the build directory.">
         <delete dir="${worldwind.build.dir}"/>
-        <delete file="${basedir}/worldwind-2.0.0-https-patch.jar"/>
+        <delete file="${basedir}/worldwind.jar"/>
+        <delete file="${basedir}/worldwindx.jar"/>
     </target>
 
-    <target name="assemble" depends="assembleRelease"
-            description="Assembles JAR libraries for all build types and assembles the project documentation.">
+    <target name="assemble" depends="assembleDebug, assembleRelease"
+            description="Assembles JAR libraries for all build types and assembles the project documentation."/>
+
+    <!-- Targets for compiling Java sources and bundling JAR libraries. -->
+
+    <target name="assembleDebug" depends="compileDebugSources, bundleDebug"
+            description="Assembles JAR libraries for the debug build type."/>
+
+    <target name="assembleRelease" depends="compileReleaseSources, bundleRelease"
+            description="Assembles JAR libraries for the release build type."/>
+
+    <target name="compileDebugSources">
+        <mkdir dir="${worldwind.classes.dir}/debug"/>
+        <compileJava srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/debug" type="debug"
+                     jdk="${worldwind.jdk}">
+            <pathelements>
+                <pathelement location="${basedir}/jogl-all.jar"/>
+                <pathelement location="${basedir}/gluegen-rt.jar"/>
+                <pathelement location="${basedir}/gdal.jar"/>
+            </pathelements>
+        </compileJava>
+    </target>
+
+    <target name="compileReleaseSources">
+        <mkdir dir="${worldwind.classes.dir}/release"/>
+        <compileJava srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/release" type="release"
+                     jdk="${worldwind.jdk}">
+            <pathelements>
+                <pathelement location="${basedir}/jogl-all.jar"/>
+                <pathelement location="${basedir}/gluegen-rt.jar"/>
+                <pathelement location="${basedir}/gdal.jar"/>
+            </pathelements>
+        </compileJava>
+    </target>
+
+    <target name="bundleDebug">
+        <mkdir dir="${worldwind.jar.dir}"/>
+        <bundleJarFiles srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/debug"
+                        destdir="${worldwind.jar.dir}" type="debug"/>
+    </target>
+
+    <target name="bundleRelease">
         <mkdir dir="${worldwind.jar.dir}"/>
         <bundleJarFiles srcdir="${worldwind.src.dir}" classdir="${worldwind.classes.dir}/release"
                         destdir="${worldwind.jar.dir}" type="release"/>
         <copy file="${worldwind.jar.dir}/worldwind-release.jar" tofile="${basedir}/worldwind.jar"/>
         <copy file="${worldwind.jar.dir}/worldwindx-release.jar" tofile="${basedir}/worldwindx.jar"/>
     </target>
-
+   
 </project>

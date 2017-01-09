@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright (C) 2017 United States Government as represented by the Administrator of the
   ~ National Aeronautics and Space Administration.
@@ -35,9 +36,7 @@
                    fork="true"
                    includeantruntime="false"
                    memoryMaximumSize="512m">
-                <classpath>
-                    <pathelements/>
-                </classpath>
+                <classpath path="${comp.worldwind}"/>
                 <compilerarg value="-Xlint:unchecked"/>
             </javac>
         </sequential>
@@ -45,8 +44,16 @@
 
     <!-- Macros for bundling library JAR files.
 
-         The World Wind core JAR file includes all class files and configuration files.
-         
+         The World Wind core JAR file includes all class files, property files, configuration files, and image files
+         under the package gov.nasa.worldwind, all class files under the package com.zebraimaging, and optionally all
+         class files under the package org.codehaus.jackson (depending on the worldwind.exclude.jackson property).
+         The zebraimaging package includes an alternative input handler for the Zebra Imaging display controller. The
+         jackson package includes the Jackson JSON parsing library which is used by gov.nasa.worldwind.formats.geojson.
+         Requires jogl-all.jar, gluegen-rt.jar, gdal.jar on the class path.
+
+         The World Wind extensions JAR file includes all class files, configuration files, image files, and data
+         resource files under the package gov.nasa.worldwindx. Requires the World Wind core JAR file on the class path.
+
          All JAR files have the Permissions attribute set to "all-permissions". This attribute is ignored for locally
          launched applications, but is required for signed Web Start Applications. This property must match the setting
          specified in the JNLP file used to launch the application.
@@ -64,13 +71,22 @@
             <jar jarfile="@{destdir}/worldwind-2.0.0-https-patch@{type}.jar">
                 <manifest>
                     <attribute name="Permissions" value="all-permissions"/>
+                    <!-- <attribute name="Class-Path" value="jogl-all.jar gluegen-rt.jar gdal.jar"/> -->
                 </manifest>
                 <fileset dir="@{classdir}">
                     <include name="gov/nasa/worldwind/**/*.class"/>
+                    <!-- <include name="com/zebraimaging/**/*.class"/> -->
+                    <!-- <include name="org/codehaus/jackson/**/*.class" unless="${worldwind.exclude.jackson}"/> -->
                     <type type="file"/>
                 </fileset>
                 <fileset dir="@{srcdir}">
                     <include name="gov/nasa/worldwind/**/*.java" if="${bundleJarFiles.debug}"/>
+                    <!-- <include name="gov/nasa/worldwind/util/**/*.properties"/> -->
+                    <!-- <include name="com/zebraimaging/**/*.java" if="${bundleJarFiles.debug}"/> -->
+                    <!-- <include name="org/codehaus/jackson/**/*.java" if="${bundleJarFiles.debug}" -->
+                             <!-- unless="${worldwind.exclude.jackson}"/> -->
+                    <include name="worldwind-2.0.0-https-patch/**"/>
+                    <!-- <include name="images/**"/> -->
                     <type type="file"/>
                 </fileset>
             </jar>
